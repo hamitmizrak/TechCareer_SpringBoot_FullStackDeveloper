@@ -26,6 +26,7 @@ public class CustomErrorHandleWebRequest {
     private final ErrorAttributes errorAttributes;
 
     // Spring gelen hataları ben alıyorum
+    // http://localhost:2222/error
     @RequestMapping("/error")
     public ApiResult handleError(WebRequest webRequest){
          int status;
@@ -44,7 +45,7 @@ public class CustomErrorHandleWebRequest {
         // int status, String message, String path
         apiResult=new ApiResult(status,message,path);
 
-        //  attributes
+        //  attributes error(Hata) varsa
         if(attributes.containsKey("errors")){
             List<FieldError> fieldErrorList= (List<FieldError>) attributes.get("error");
             Map<String,String> validation=new HashMap<>();
@@ -55,5 +56,6 @@ public class CustomErrorHandleWebRequest {
         }
 
         return apiResult;
-    }
-}
+    } //end handleError
+} // end CustomErrorHandleWebRequest {
+
