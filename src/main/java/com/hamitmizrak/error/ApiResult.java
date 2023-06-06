@@ -1,6 +1,7 @@
 package com.hamitmizrak.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 // LOMBOK
 @Data
+@AllArgsConstructor
 @Builder
 @Log4j2
 
@@ -36,7 +38,7 @@ public class ApiResult {
     }
 
     //  parametreli constructor
-    public ApiResult(int status, String message, String path) {
+    public ApiResult(int status,String path, String message ) {
         this.status = status;
         this.message = message;
         this.path = path;

@@ -2,8 +2,10 @@ package com.hamitmizrak.error;
 
 import com.hamitmizrak.util.FrontEndURL;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,48 +16,49 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// LOMBOK
-@RequiredArgsConstructor // for injection
+//LOMBOK
+@Log4j2
+@RequiredArgsConstructor
 
-// API
+// SpringBoot defaulltan gelen error'ı kendimize göre customize yapıyoruz.
 @RestController
-@CrossOrigin(origins = FrontEndURL.FRONTEND_URL)
-public class CustomErrorHandleWebRequest {
+@CrossOrigin(origins = FrontEndURL.FRONTEND_URL)// @CrossOrigin(origins = "http://localhost:3000")
+public class CustomErrorHandleWebRequest implements ErrorController {
 
     // INJECTION
     private final ErrorAttributes errorAttributes;
 
-    // Spring gelen hataları ben alıyorum
+    // 1.YOL
     // http://localhost:2222/error
+    // Spring'ten gelen /error yakalayıp custom handle yapmak için
     @RequestMapping("/error")
-    public ApiResult handleError(WebRequest webRequest){
-         int status;
-         String message;
-         String path;
-         ApiResult apiResult;
+    public ApiResult handleError(WebRequest webRequest) {
+        //ApiResult değişkenlerini atamak
+        int status;
+        String message, path;
+        ApiResult apiResult;
 
-         // Spring +2.3>
-        Map<String,Object> attributes=errorAttributes.getErrorAttributes(
-                webRequest, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE,ErrorAttributeOptions.Include.BINDING_ERRORS)
-        );
+        //Spring 2.3>= sonra böyle oldu
+        Map<String, Object> attributes = this.errorAttributes.getErrorAttributes(
+                webRequest, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE, ErrorAttributeOptions.Include.BINDING_ERRORS)
+        ); //end attributes
 
-        status= (int) attributes.get("status");
-        message= (String) attributes.get("message");
-        path= (String) attributes.get("path");
-        // int status, String message, String path
-        apiResult=new ApiResult(status,message,path);
+        status = (Integer) attributes.get("status");
+        message = (String) attributes.get("message");
+        path = (String) attributes.get("path");
+        apiResult = new ApiResult(status, path, message);
 
-        //  attributes error(Hata) varsa
-        if(attributes.containsKey("errors")){
-            List<FieldError> fieldErrorList= (List<FieldError>) attributes.get("error");
-            Map<String,String> validation=new HashMap<>();
-            for ( FieldError fieldError: fieldErrorList){
-                validation.put(fieldError.getField(),fieldError.getDefaultMessage());
+        //attibutesta apiResult varsa
+        if (attributes.containsKey("errors")) {
+            List<FieldError> fieldErrorList = (List) attributes.get("errors");
+            Map<String, String> validationMistake = new HashMap<>();
+            for (FieldError fieldError : fieldErrorList) {
+                validationMistake.put(fieldError.getField(), fieldError.getDefaultMessage());
             }
-            apiResult.setValidationErrors(validation);
+            apiResult.setValidationErrors(validationMistake);
         }
-
         return apiResult;
-    } //end handleError
-} // end CustomErrorHandleWebRequest {
+    } //end 1.YOL handleError
+
+}
 
