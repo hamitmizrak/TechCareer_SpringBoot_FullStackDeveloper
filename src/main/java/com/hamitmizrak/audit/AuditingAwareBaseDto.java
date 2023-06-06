@@ -3,12 +3,15 @@ package com.hamitmizrak.audit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
 
 // LOMBOK
-@Data
+@Getter
+@Setter
 
 // Auditing atabase hangi kullanıcı ne zaman => ne ekledi veya ne güncelledi
 abstract public class AuditingAwareBaseDto implements Serializable {
