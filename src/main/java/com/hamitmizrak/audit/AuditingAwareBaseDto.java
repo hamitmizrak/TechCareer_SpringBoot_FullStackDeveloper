@@ -1,6 +1,7 @@
 package com.hamitmizrak.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,17 +11,16 @@ import java.util.Date;
 @Data
 
 // Auditing atabase hangi kullanıcı ne zaman => ne ekledi veya ne güncelledi
-abstract public class AuditingAwareBaseDto  implements Serializable {
+abstract public class AuditingAwareBaseDto implements Serializable {
 
     //Serileştirme
     public static final Long serialVersionUID = 1L;
 
-    // ID
-    private Long id;
+    private Long id; // ID
+    @Builder.Default
+    private Date systemDate=new Date(System.currentTimeMillis()); // DATE
 
-    // DATE
-    private Date systemDate;
-
+    // AUDITING
     @JsonIgnore // backentte giden veriyi saklar
     protected String createdUser;
 
