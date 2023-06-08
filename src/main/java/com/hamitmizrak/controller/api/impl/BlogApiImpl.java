@@ -42,6 +42,28 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
         return ResponseEntity.ok("index");
     }
 
+    // SPEED
+    // localhost:2222/blog/api/v1/speed/data
+    @GetMapping("/speed/data")
+    @Override
+    public ResponseEntity<List<BlogDto>> speedDataService() {
+        return ResponseEntity.ok(iBlogGenericsService.speedDataService());
+    }
+
+    // localhost:2222/blog/api/v1/all/delete
+    @GetMapping("/all/delete")
+    @Override
+    public ResponseEntity<String> allDeleteService() {
+        return ResponseEntity.ok(iBlogGenericsService.allDeleteService());
+    }
+
+    // localhost:2222/blog/api/v1/app/information
+    @GetMapping("/app/information")
+    @Override
+    public ResponseEntity<String> appInformationService(HttpServletRequest request, HttpServletResponse response) {
+        return ResponseEntity.ok(iBlogGenericsService.appInformationService(request,response));
+    }
+
     // ### CRUD ###############################
     // CREATE
     // localhost:2222/blog/api/v1/create
@@ -78,7 +100,7 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
             apiResult = new ApiResult(400, "bad Request", " Kötü İstek", "/blog/api/v1/find/0");
             return ResponseEntity.ok(apiResult);
         }
-        return ResponseEntity.ok(blogServiceFindById(id));
+        return ResponseEntity.ok(iBlogGenericsService.blogServiceFindById(id));
     }
 
     // DELETE
@@ -96,30 +118,8 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     public ResponseEntity<?> blogServiceUpdateById(
             @PathVariable(name = "id", required = false) Long id,
             @Valid @RequestBody BlogDto blogDto) {
+        blogDto.setId(id);
         return ResponseEntity.ok(iBlogGenericsService.blogServiceUpdateById(id,blogDto));
-    }
-
-    ///////////////
-    // SPEED, DELETEALL
-    // localhost:2222/blog/api/v1/speed/data
-    @GetMapping("/speed/data")
-    @Override
-    public ResponseEntity<List<BlogDto>> speedDataService() {
-        return ResponseEntity.ok(iBlogGenericsService.speedDataService());
-    }
-
-    // localhost:2222/blog/api/v1/all/delete
-    @GetMapping("/all/delete")
-    @Override
-    public ResponseEntity<String> allDeleteService() {
-        return ResponseEntity.ok(iBlogGenericsService.allDeleteService());
-    }
-
-    // localhost:2222/blog/api/v1/app/information
-    @GetMapping("/app/information")
-    @Override
-    public ResponseEntity<String> appInformationService(HttpServletRequest request, HttpServletResponse response) {
-        return ResponseEntity.ok(iBlogGenericsService.appInformationService(request,response));
     }
 
     /////////////////

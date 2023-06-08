@@ -105,21 +105,23 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
         return blogDtoDeleteFind;
     }
 
+    // Update
+    // CommandLineRunner
+
     // UPDATE
     @Transactional // Create, Delete, Update
     @Override
     public BlogDto blogServiceUpdateById(Long id, BlogDto blogDto) {
-        BlogDto blogDtoUpdateFind = blogServiceFindById(id);
-        BlogEntity blogEntity = DtoToEntity(blogDtoUpdateFind);
+        BlogEntity blogEntity = DtoToEntity(blogServiceFindById(id));
         if (blogEntity != null) {
-            blogEntity.setId(blogDtoUpdateFind.getId());
-            blogEntity.setHeader(blogDtoUpdateFind.getHeader());
-            blogEntity.setContent(blogDtoUpdateFind.getContent());
+            blogEntity.setId(id);
+            blogEntity.setHeader(blogDto.getHeader());
+            blogEntity.setContent(blogDto.getContent());
             iBlogRepository.save(blogEntity);
             blogDto.setId(blogEntity.getId());
             blogDto.setSystemDate(blogDto.getSystemDate());
         }
-        return blogDtoUpdateFind;
+        return EntityToDto(blogEntity);
     }
 
     // ### PAGEABLE ###################################################################
@@ -149,7 +151,7 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
     // ÇOKLU VERİ EKLE
     @Override
     public List<BlogDto> speedDataService() {
-        List<BlogDto> list = null;
+        List<BlogDto> list = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             BlogDto blogDto = BlogDto.builder()
                     .header("header " + i)
