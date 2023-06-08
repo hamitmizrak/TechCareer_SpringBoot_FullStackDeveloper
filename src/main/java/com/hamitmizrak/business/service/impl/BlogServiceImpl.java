@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +111,7 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
     public BlogDto blogServiceUpdateById(Long id, BlogDto blogDto) {
         BlogDto blogDtoUpdateFind = blogServiceFindById(id);
         BlogEntity blogEntity = DtoToEntity(blogDtoUpdateFind);
-        if(blogEntity!=null){
+        if (blogEntity != null) {
             blogEntity.setId(blogDtoUpdateFind.getId());
             blogEntity.setHeader(blogDtoUpdateFind.getHeader());
             blogEntity.setContent(blogDtoUpdateFind.getContent());
@@ -123,11 +122,17 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
         return blogDtoUpdateFind;
     }
 
-    // ### PAGEABLE ###############################
+    // ### PAGEABLE ###################################################################
     // Lıst: pageable
     @Override
     public List<BlogDto> blogServiceAllList() {
-        return null;
+        Iterable<BlogEntity> blogEntityPage = iBlogRepository.findAll();
+        List<BlogDto> list = new ArrayList<>();
+        for (BlogEntity entity : blogEntityPage) {
+            BlogDto blogDto = EntityToDto(entity);
+            list.add(blogDto);
+        }
+        return list;
     }
 
     @Override
@@ -140,22 +145,40 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
         return null;
     }
 
-    // ### PROFILE ###############################
+    // ### PROFILE ########################################################################
     // ÇOKLU VERİ EKLE
     @Override
-    public String speedDataService() {
-        return null;
+    public List<BlogDto> speedDataService() {
+        List<BlogDto> list = null;
+        for (int i = 1; i <= 10; i++) {
+            BlogDto blogDto = BlogDto.builder()
+                    .header("header " + i)
+                    .content("content " + i)
+                    .build();
+            blogServiceCreate(blogDto);
+            list.add(blogDto);
+        }
+        return list;
     }
 
-    // ÇOKLU VERİ EKLE
+    // ÇOKLU VERİ SİL
     @Override
     public String allDeleteService() {
-        return null;
+        iBlogRepository.deleteAll();
+        log.info("Silindi");
+        return "Silindi ";
     }
 
     // APP INFO
     @Override
     public String appInformationService(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+        // URL URI
+        // relative Path, absolute Path
+        String URI = request.getRequestURI();
+        String LOCALHOST = request.getLocalAddr();
+        String SESSION = request.getSession().toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(URI).append(" ").append(LOCALHOST).append(" ").append(SESSION);
+        return stringBuilder.toString();
     }
-}
+} //end class

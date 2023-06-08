@@ -1,12 +1,15 @@
 package com.hamitmizrak.business.service;
 
+import com.hamitmizrak.business.dto.BlogDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.List;
 
 public interface IProfileApp {
 
     // Bütün veri eklesin
-    public String speedDataService();
+    public List<BlogDto> speedDataService();
 
     // Bütün veriyi silsin
     public String allDeleteService();
