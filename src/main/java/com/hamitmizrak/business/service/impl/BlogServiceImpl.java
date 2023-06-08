@@ -5,6 +5,7 @@ import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.business.service.IBlogGenericsService;
 import com.hamitmizrak.data.entity.BlogEntity;
 import com.hamitmizrak.data.repository.IBlogRepository;
+import com.hamitmizrak.exception.BadRequestException;
 import com.hamitmizrak.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -91,7 +92,7 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
             blogEntity = iBlogRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException(id + " nolu ID bulunamadı"));
         } else if (id == null)
-            throw new NotFoundException(id + "Blog Dto Null Geldi");
+            throw new BadRequestException(id + "Blog Dto Null Geldi"); // 400
         return EntityToDto(blogEntity);
     }
 
