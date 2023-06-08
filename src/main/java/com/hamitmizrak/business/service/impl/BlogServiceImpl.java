@@ -1,13 +1,11 @@
 package com.hamitmizrak.business.service.impl;
 
-// LOMBOK
-
-
 import com.hamitmizrak.bean.ModelMapperBean;
 import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.business.service.IBlogGenericsService;
 import com.hamitmizrak.data.entity.BlogEntity;
 import com.hamitmizrak.data.repository.IBlogRepository;
+import com.hamitmizrak.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.webjars.NotFoundException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 // LOMBOK
@@ -44,16 +45,15 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
     private final ModelMapperBean modelMapperBean;
     private final IBlogRepository iBlogRepository;
 
-
     // ### Model Mapper ###############################
     @Override
     public BlogDto EntityToDto(BlogEntity blogEntity) {
-        return null;
+        return modelMapperBean.modelMapperMethod().map(blogEntity, BlogDto.class);
     }
 
     @Override
     public BlogEntity DtoToEntity(BlogDto blogDto) {
-        return null;
+        return modelMapperBean.modelMapperMethod().map(blogDto, BlogEntity.class);
     }
 
     // ### CRUD ###############################
@@ -61,33 +61,65 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
     @Transactional // Create, Delete, Update
     @Override
     public BlogDto blogServiceCreate(BlogDto blogDto) {
-        return null;
+        if (blogDto != null) {
+            BlogEntity blogEntityModel = DtoToEntity(blogDto);
+            BlogEntity blogEntity = iBlogRepository.save(blogEntityModel);
+            blogDto.setId(blogEntity.getId());
+            blogDto.setSystemDate(blogDto.getSystemDate());
+        } else if (blogDto == null)
+            throw new NotFoundException("BlogDto yoktur");
+        return blogDto;
     }
 
     // LIST
     @Override
     public List<BlogDto> blogServiceList() {
-        return null;
+        Iterable<BlogEntity> blogEntityIterable = iBlogRepository.findAll();
+        List<BlogDto> list = new ArrayList<>();
+        for (BlogEntity entity : blogEntityIterable) {
+            BlogDto blogDto = EntityToDto(entity);
+            list.add(blogDto);
+        }
+        return list;
     }
 
     // FIND
     @Override
     public BlogDto blogServiceFindById(Long id) {
-        return null;
+        BlogEntity blogEntity = null;
+        if (id != null) {
+            blogEntity = iBlogRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(id + " nolu ID bulunamadı"));
+        } else if (id == null)
+            throw new NotFoundException(id + "Blog Dto Null Geldi");
+        return EntityToDto(blogEntity);
     }
 
     // DELETE
     @Transactional // Create, Delete, Update
     @Override
     public BlogDto blogServiceDeleteById(Long id) {
-        return null;
+        BlogDto blogDtoDeleteFind = blogServiceFindById(id);
+        BlogEntity blogEntity = DtoToEntity(blogDtoDeleteFind);
+        iBlogRepository.delete(blogEntity);
+        return blogDtoDeleteFind;
     }
 
     // UPDATE
     @Transactional // Create, Delete, Update
     @Override
     public BlogDto blogServiceUpdateById(Long id, BlogDto blogDto) {
-        return null;
+        BlogDto blogDtoUpdateFind = blogServiceFindById(id);
+        BlogEntity blogEntity = DtoToEntity(blogDtoUpdateFind);
+        if(blogEntity!=null){
+            blogEntity.setId(blogDtoUpdateFind.getId());
+            blogEntity.setHeader(blogDtoUpdateFind.getHeader());
+            blogEntity.setContent(blogDtoUpdateFind.getContent());
+            iBlogRepository.save(blogEntity);
+            blogDto.setId(blogEntity.getId());
+            blogDto.setSystemDate(blogDto.getSystemDate());
+        }
+        return blogDtoUpdateFind;
     }
 
     // ### PAGEABLE ###############################
