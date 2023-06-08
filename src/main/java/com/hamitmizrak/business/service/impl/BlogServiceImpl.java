@@ -68,7 +68,7 @@ public class BlogServiceImpl implements IBlogGenericsService<BlogDto, BlogEntity
             blogDto.setId(blogEntity.getId());
             blogDto.setSystemDate(blogDto.getSystemDate());
         } else if (blogDto == null)
-            throw new NotFoundException("BlogDto yoktur");
+            throw new BadRequestException("BlogDto yoktur");
         return blogDto;
     }
 
