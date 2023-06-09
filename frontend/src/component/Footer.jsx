@@ -4,6 +4,11 @@ import { withTranslation } from 'react-i18next';
 
 // CLASS Component
 class Footer extends Component {
+
+    // Componentteki yeni isim
+    static displayName="Blog_Footer";
+
+    // CONSTRUCTOR
     constructor(props) {
         super(props);
 
