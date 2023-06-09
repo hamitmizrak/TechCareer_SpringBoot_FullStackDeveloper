@@ -4,8 +4,11 @@ import React, { Component } from 'react'
 // css
 import './style.css'
 
+// i18n
+import { withTranslation } from 'react-i18next';
+
 // CLASS Component
-export default class Main extends Component {
+class Main extends Component {
     constructor(props) {
         super(props);
 
@@ -75,5 +78,5 @@ export default class Main extends Component {
     } // end render
 }//end clas
 
-
-
+// i18n Wrapper
+export default withTranslation()(Main)   

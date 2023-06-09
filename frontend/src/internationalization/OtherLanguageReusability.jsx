@@ -5,8 +5,8 @@ import React from 'react';
 
 //TR import edelim
 //adı tr olsun
-import tr from "../image/flag/Turkish.png"
-import en from "../image/flag/English.jpg"
+import tr from "../component/img/flag/tr.png"
+import en from "../component/img/flag/en.png"
 
 // Dil secenegi
 import {withTranslation} from 'react-i18next';
