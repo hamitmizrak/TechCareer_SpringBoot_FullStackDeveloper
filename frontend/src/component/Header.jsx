@@ -1,8 +1,7 @@
 // rcc
 import React, { Component } from 'react'
 
-// css
-import './style.css'
+
 
 // image
 import Logo from './img/logo.jpg'

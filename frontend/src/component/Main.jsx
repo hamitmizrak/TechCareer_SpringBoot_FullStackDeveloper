@@ -1,6 +1,9 @@
 // rcc
 import React, { Component } from 'react'
 
+// css
+import './style.css'
+
 // CLASS Component
 export default class Main extends Component {
     constructor(props) {
