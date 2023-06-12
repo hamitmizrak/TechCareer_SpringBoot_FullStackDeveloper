@@ -17,6 +17,12 @@ import { withTranslation } from 'react-i18next';
 // BrowserRouter as Router URL=>(http://localhost:3000/)
 import { HashRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 
+// Blog
+import BlogList from './blog/BlogList';
+import BlogCreate from './blog/BlogCreate';
+import BlogUpdate from './blog/BlogUpdate';
+import BlogView from './blog/BlogView';
+
 // CLASS Component
 class RouterMain extends Component {
 
@@ -54,10 +60,10 @@ class RouterMain extends Component {
                             <Route path="/" exact component={Main}></Route>
                             <Route path="/index" component={Main}></Route>
 
-                            <Route path="/blog/list" component={Main}></Route>
-                            <Route path="/blog/create" component={Main}></Route>
-                            <Route path="/blog/update/:id" component={Main}></Route>
-                            <Route path="/blog/view/:id" component={Main}></Route>
+                            <Route path="/blog/list" component={BlogList}></Route>
+                            <Route path="/blog/create" component={BlogCreate}></Route>
+                            <Route path="/blog/update/:id" component={BlogUpdate}></Route>
+                            <Route path="/blog/view/:id" component={BlogView}></Route>
                             {/* eğer kullanıcı bad request atarsa(400) ana sayfaya yönlendirsin */}
                             <Redirect to="/" />
                         </Switch>
