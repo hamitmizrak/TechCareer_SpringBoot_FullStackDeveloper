@@ -15,7 +15,7 @@ import { withTranslation } from 'react-i18next';
 // BrowserRouter => Test için
 // BrowserRouter: backent içiin network'u bütün detayına kadar bana göster
 // BrowserRouter as Router URL=>(http://localhost:3000/)
-import { HashRouter as Router, Redirect, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 
 // Blog
 import BlogList from './blog/BlogList';

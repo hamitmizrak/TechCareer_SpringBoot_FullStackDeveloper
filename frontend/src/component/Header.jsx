@@ -17,8 +17,8 @@ import { Link } from 'react-router-dom';
 // CLASS Component
 class Header extends Component {
 
-   // Componentteki yeni isim
-   static displayName="Blog_Header"
+    // Componentteki yeni isim
+    static displayName = "Blog_Header"
 
     // CONSTRUCTOR
     constructor(props) {
@@ -242,34 +242,36 @@ class Header extends Component {
                         >
                             <span className="navbar-toggler-icon" />
                         </button>
+
                         <div className="collapse navbar-collapse" id="collapsibleNavId">
                             <ul className="navbar-nav me-auto mt-2 mt-lg-0">
                                 <li className="nav-item">
                                     <a className="nav-link active" href="#" aria-current="page">
-                                        Anasayfa <span className="visually-hidden">(current)</span>
+                                        {this.props.homePage} <span className="visually-hidden">(current)</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#studies">
-                                        Çalışmalar
+                                    {this.props.work} 
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#performance">
-                                        Başarılar
+                                    {this.props.success} 
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#newspaper">
-                                        Haberler
+                                         {this.props.newsPaper} 
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#about">
-                                        Hakkımızda
+                                    {this.props.aboutMe}
                                     </a>
                                 </li>
-                                <li className="nav-item dropdown">
+
+                                {/* <li className="nav-item dropdown">
                                     <a
                                         className="nav-link dropdown-toggle"
                                         href="#"
@@ -281,18 +283,22 @@ class Header extends Component {
                                         Blog
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="dropdownId">
-                                        {/* <a className="dropdown-item" href="blog/list">
+                                         <a className="dropdown-item" href="blog/list">
                                             Yazılım
-                                        </a> */}
-                                        {/* <Link className="dropdown-item" to={'/blog/list'}>
-                                            Yazılım
-                                        </Link> */}
-                                       
+                                        </a> 
+                                         <Link className="dropdown-item" to={'/blog/list'}>
+                                            Blog List
+                                        </Link> 
                                     </div>
+                                </li> */}
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/blog/list'}>
+                                    {this.props.blog}
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#maps">
-                                        İletişim
+                                    {this.props.contact}
                                     </a>
                                 </li>
                             </ul>
@@ -316,10 +322,22 @@ class Header extends Component {
     } // end render
 }//end clas
 
+// default Props
+Header.defaultProps={
+  //homePage:this.props.t('homePage'),
+  homePage:"Anasayfa",
+  work:"Çalışmalarımız",
+  success:"Başarılar",
+  newsPaper:"Haberler",
+  aboutMe:"Hakkımızda",
+  blog:" Blog",
+  contact:"İletişim"  
+}
+
 // export default Header;
 // i18n Wrapper
 // export default withTranslation()(Header)
-export default withTranslation()(Header) ;
+export default withTranslation()(Header);
 
 
 

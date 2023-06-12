@@ -1,0 +1,8 @@
+
+:root{
+    --bg-color:#ececec;
+}
+
+.create_form{
+    background-color: var(--bg-color);
+}

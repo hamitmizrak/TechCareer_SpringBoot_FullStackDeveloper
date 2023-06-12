@@ -1,0 +1,11 @@
+.specialCard .card{
+    /* margin-left: 20%;
+    margin-top: 5%;
+    margin-bottom:5%; */
+    margin: 5% 0 5% 20%;
+}
+ 
+.specialCard img{
+    width: 90%;
+    height: 25rem;
+}

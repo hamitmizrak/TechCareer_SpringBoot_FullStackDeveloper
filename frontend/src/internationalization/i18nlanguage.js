@@ -6,6 +6,7 @@ i18n.use(initReactI18next).init({
         en:
             {
                 translations: {
+                    'homePage':"Home Page",
                     'date':"System Created Date",
                     'create':"Create",
                     'delete':"Delete",
@@ -20,6 +21,7 @@ i18n.use(initReactI18next).init({
         tr:
             {
                 translations: {
+                    'homePage':"Anasayfa",
                     'date':"Ekleme Tarihi",
                     'create':"Ekle",
                     'delete':"Sil",
