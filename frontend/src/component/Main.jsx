@@ -35,9 +35,8 @@ class Main extends Component {
 
         //RETURN
         return (
-            // <div>Header</div>
-            //<React.Fragment>Header</React.Fragment>
-            <>
+            // <div>Main</div>
+            //<React.Fragment>Main</React.Fragment>
                 <>
                     {/* main start */}
                     <main id="main_id">
@@ -536,11 +535,11 @@ class Main extends Component {
                     </main>
                     {/* main end */}
                 </>
-
-            </>
         ) //end return
     } // end render
 }//end clas
 
+// export default Main
 // i18n Wrapper
 export default withTranslation()(Main)   
+

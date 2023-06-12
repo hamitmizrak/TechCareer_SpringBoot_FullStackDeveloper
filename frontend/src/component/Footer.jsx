@@ -30,8 +30,8 @@ class Footer extends Component {
 
         //RETURN
         return (
-            // <div>Header</div>
-            //<React.Fragment>Header</React.Fragment>
+            // <div>Footer</div>
+            //<React.Fragment>Footer</React.Fragment>
             <>
             {/* footer start */}
             <footer id="footer_id">
@@ -131,5 +131,6 @@ class Footer extends Component {
     } // end render
 }//end clas
 
+// export default Footer
 // i18n Wrapper
 export default withTranslation()(Footer)

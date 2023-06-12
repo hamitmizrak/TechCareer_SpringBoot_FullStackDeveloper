@@ -1,11 +1,20 @@
 // rcc
 import React, { Component } from 'react'
+
+// Header, Main,Footer
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 
+// i18n 
+import { withTranslation } from 'react-i18next';
+
 // CLASS Component
-export default class RouterMain extends Component {
+class RouterMain extends Component {
+
+     // Componentteki yeni isim
+   static displayName="Blog_Router"
+
     constructor(props) {
         super(props);
 
@@ -42,3 +51,4 @@ export default class RouterMain extends Component {
 
 
 
+export default withTranslation()(RouterMain) 
