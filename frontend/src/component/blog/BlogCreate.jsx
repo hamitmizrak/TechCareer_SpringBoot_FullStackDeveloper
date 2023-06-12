@@ -31,7 +31,7 @@ class BlogCreate extends Component {
         //RETURN
         return (
             <React.Fragment>
-                BLOG 
+                BLOG CREATE
             </React.Fragment>
         ) //end return
     } // end render

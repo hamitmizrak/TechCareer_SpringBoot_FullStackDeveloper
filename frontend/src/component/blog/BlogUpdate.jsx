@@ -32,7 +32,7 @@ class BlogUpdate extends Component {
         //RETURN
         return (
             <React.Fragment>
-                BlogList 
+                BlogUPDATE 
             </React.Fragment>
         ) //end return
     } // end render

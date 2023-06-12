@@ -32,7 +32,7 @@ class BlogWiew extends Component {
         //RETURN
         return (
             <React.Fragment>
-                BlogList 
+                BlogVİEW
             </React.Fragment>
         ) //end return
     } // end render

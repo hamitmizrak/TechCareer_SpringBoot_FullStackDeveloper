@@ -11,8 +11,11 @@ class                   className
 
 #############################################################################
 ### ROUTER ##################################################################
-BrowserRouter as Router 
-HashRouter as Router
+package.json 
+ "react-router-dom": "^5.2.0",
+-DİKKAT: Proje sonrasında projeyi kapat: npm install yapmalısın ki router doğru çalışsın
+-BrowserRouter as Router 
+-HashRouter as Router
 
 OLD                     NEW
 --------------          ---------------------------

@@ -32,7 +32,7 @@ class BlogList extends Component {
         //RETURN
         return (
             <React.Fragment>
-                BlogList 
+                Blog List 
             </React.Fragment>
         ) //end return
     } // end render
