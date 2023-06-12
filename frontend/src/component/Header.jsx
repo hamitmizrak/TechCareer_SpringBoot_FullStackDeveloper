@@ -11,6 +11,7 @@ import FlagEnglish from './img/flag/en.png'
 
 // OtherLanguageReusability
 import OtherLanguageReusability from '../internationalization/OtherLanguageReusability';
+import { Link } from 'react-router-dom';
 
 
 // CLASS Component
@@ -55,8 +56,7 @@ class Header extends Component {
                                         <button
                                             className="btn btn-sm btn-primary"
                                             data-bs-toggle="offcanvas"
-                                            data-bs-target="#offCanvasRegisterId"
-                                        >
+                                            data-bs-target="#offCanvasRegisterId">
                                             <i className="fa-solid fa-user-secret" />
                                         </button>
                                     </li>
@@ -65,8 +65,7 @@ class Header extends Component {
                                         <button
                                             className="btn btn-sm btn-primary"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#loginModalId"
-                                        >
+                                            data-bs-target="#loginModalId">
                                             <i className="fa-solid fa-circle-user" />
                                         </button>
                                     </li>
@@ -123,12 +122,10 @@ class Header extends Component {
                     data-bs-keyboard="false"
                     role="dialog"
                     aria-labelledby="modalTitleId"
-                    aria-hidden="true"
-                >
+                    aria-hidden="true">
                     <div
                         className="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
-                        role="document"
-                    >
+                        role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="modalTitleId">
@@ -284,12 +281,13 @@ class Header extends Component {
                                         Blog
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="dropdownId">
-                                        <a className="dropdown-item" href="#blog">
+                                        {/* <a className="dropdown-item" href="blog/list">
                                             Yazılım
-                                        </a>
-                                        <a className="dropdown-item" href="#">
-                                            Bilim
-                                        </a>
+                                        </a> */}
+                                        {/* <Link className="dropdown-item" to={'/blog/list'}>
+                                            Yazılım
+                                        </Link> */}
+                                       
                                     </div>
                                 </li>
                                 <li className="nav-item">
