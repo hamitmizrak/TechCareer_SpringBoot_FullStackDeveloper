@@ -33,7 +33,7 @@ class BlogApiServices {
 
     // UPDATE
     // localhost:2222/blog/api/v1/update/1
-    blogServiceUpdateById(blogDto) {
+    blogServiceUpdateById(id,blogDto) {
         blogDto.setId(id);
         return axios.put(`${BLOG_URL}/update/${id}`, blogDto);
     }
