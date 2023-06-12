@@ -25,7 +25,11 @@ class BlogList extends Component {
             blogList: [],
         }
 
-        //bind
+        // bind
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.view = this.view.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     // CDM
@@ -42,6 +46,35 @@ class BlogList extends Component {
     }
 
     // FUNCTION
+    // PHP CREATE
+    create() {
+        this.props.history.push("/blog/create");
+    }
+
+    // PHP UPDATE(id)
+    update(id) {
+        this.props.history.push("/blog/update/" + id);
+    }
+
+    // PHP VIEW(id)
+    view(id) {
+        this.props.history.push(`/blog/view/${id}`);
+    }
+
+    // PHP DELETE(id)
+    delete(id) {
+        BlogApiServices.blogServiceDeleteById(id).then(
+            (response) => {
+                this.setState({
+                    blogList: this.state.blogList.filter(
+                        blogList => blogList.id != id
+                    )//end filter
+                })// end setState
+            }// end response
+        ).catch(error => {
+            console.error("Blog Delete Failed: " + error)
+        })
+    }
 
     //RENDER
     render() {
@@ -62,7 +95,11 @@ class BlogList extends Component {
             <React.Fragment>
                 <h1 className="text-center text-primary display-5 text-uppercase"> {this.props.t('blog')}</h1>
                 {/* Create Button Blog */}
-                <button className="btn btn-primary" style={{ marginRight: "1rem" }}>
+                <button
+                    className="btn btn-primary"
+                    onClick={this.create}         // 1.YOL
+                    //onClick={()=>this.create()} // 2.YOL
+                    style={{ marginRight: "1rem" }}>
                     <i class="fa-solid fa-circle-plus me-3"></i>
                     {this.props.t('create')}
                 </button>
@@ -92,9 +129,35 @@ class BlogList extends Component {
                                     <td>{blog.header}</td>
                                     <td>{blog.content}</td>
                                     <td>{blog.systemDate}</td>
-                                    <td><i class="fa-solid fa-pen-to-square text-primary"></i></td>
-                                    <td><i class="fa-solid fa-binoculars text-dark"></i></td>
-                                    <td><i class="fa-solid fa-trash text-danger"></i></td>
+                                    {/* UPDATE */}
+                                    <td>
+                                        <i
+                                            class="fa-solid fa-pen-to-square text-primary"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => this.update(blog.id)} ></i>
+                                    </td>
+
+                                    {/* VIEW */}
+                                    <td>
+                                        <i
+                                            class="fa-solid fa-binoculars text-dark"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => this.view(blog.id)}></i>
+                                    </td>
+
+                                    {/* DELETE */}
+                                    <td>
+                                        <i
+                                            class="fa-solid fa-trash text-danger"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => {
+                                                if (window.confirm(blog.id + " ID Blog silmek istiyor musunuz ?"))
+                                                    this.delete(blog.id)
+                                                else
+                                                    window.alert("Silinmedi !!!");
+                                            } //end function
+                                          }></i>
+                                    </td>
                                 </tr>) // end map
                         } //end JS
                     </tbody>
