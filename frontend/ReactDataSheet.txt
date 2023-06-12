@@ -1,4 +1,28 @@
+### JSX ##################################################################
 HTML TO JSX
 https://transform.tools/html-to-jsx
 
-style={{color:"red"}}
+Dikkat: Açılan her tag kapatılmalıdır.
+OLD                     NEW
+--------------          ---------------------------
+style                   style={{color:"red"}}
+for                     HtmlFor 
+class                   className
+
+#############################################################################
+### ROUTER ##################################################################
+BrowserRouter as Router 
+HashRouter as Router
+
+OLD                     NEW
+--------------          ---------------------------
+<a href=""/>            <Link to=""/>
+
+
+#############################################################################
+### COMMON REACT ############################################################
+props: Componentler arasında veri gönderimini sağlar.
+<Header logo="" homePageLink="http://localhost:3000/index" ></Header>
+
+function component => props.logo
+class component    => this.props.logo
