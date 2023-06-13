@@ -71,7 +71,7 @@ class Header extends Component {
                                     </li>
                                     <li>
                                         {" "}
-                                        <button className="btn btn-sm btn-primary" onclick="darkMode()">
+                                        <button className="btn btn-sm btn-primary" onClick="darkMode()">
                                             <i className="fa-solid fa-circle-half-stroke" />
                                         </button>
                                     </li>
@@ -151,7 +151,7 @@ class Header extends Component {
                                             className="form-control"
                                             placeholder="Emailinizi yazınız..."
                                             required=""
-                                            autofocus=""
+                                            autoFocus=""
                                         />
                                         <label className="text-danger" id="email_data_validation" />
                                     </div>

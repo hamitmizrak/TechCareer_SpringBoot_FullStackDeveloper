@@ -11,6 +11,8 @@ OLD                     NEW
 style                   style={{color:"red"}}
 for                     HtmlFor 
 class                   className
+onclick                 onClick
+ondblclick              onDoubleClick
 
 #############################################################################
 ### ROUTER ##################################################################

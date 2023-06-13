@@ -116,7 +116,7 @@ class Footer extends Component {
               id="footer_copy_right"
             >
               <div className="container-fluid">
-                2021- <span id="footer_date" ondblclick="footer_date_hide()" /> {this.props.copy} <a href="#">Design and codes By Hamit Mızrak</a>
+                2021- <span id="footer_date" onDoubleClick="footer_date_hide()" /> {this.props.copy} <a href="#">Design and codes By Hamit Mızrak</a>
               </div>
             </section>
             {/* footer end */}

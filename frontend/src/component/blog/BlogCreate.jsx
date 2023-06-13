@@ -1,5 +1,7 @@
 // rcc
 import React, { Component } from 'react'
+
+// i18n 
 import { withTranslation } from 'react-i18next';
 
 // Create Css
@@ -15,10 +17,16 @@ class BlogCreate extends Component {
     constructor(props) {
         super(props);
 
-        //bind
-
         //state
-        this.state = {}
+        this.state = {
+            header: null,
+            content: null,
+            blogDto: {},
+            // isRead
+            // SpinnerData
+            // Validation
+            // Multiple Request engellemek
+        }
 
         //bind
     }
@@ -27,40 +35,59 @@ class BlogCreate extends Component {
     componentDidMount() { }
 
     // FUNCTION
+    onChangeInputValue = (event) => {
+        console.log(event)
+        // 1. YOL (TARGET)
+        //const eventTargetName = event.target.name;
+        //const eventTargetValue = event.target.value;
+        //console.log(`NAME: ${eventTargetName} VALUE: ${eventTargetValue}`)
+
+        // 2.YOL (TARGET)
+        const {name,value}=event.target;
+         console.log(`NAME: ${name} VALUE: ${value}`)
+
+         //STATE
+         this.setState({
+            // 2.YOL
+            [name]:value,
+         })
+    } // end onChangeInputValue
 
     //RENDER
     render() {
-
+        // 'blog_header':'Blog Header',
+        // 'blog_content':'Blog Content',
         //RETURN
         return (
             <React.Fragment>
                 <h2 className="display-3 text-center text-uppercase shadow mt-5 mb-3 p-4">Blog Create</h2>
-                <form className="create_form">
-                    {/* Name input */}
+                <form className="create_form" method='post' autoComplete='true'>
+                    {/* Header input */}
                     <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="form4Example1">
-                            Name
-                        </label>
-                        <input type="text" id="form4Example1" className="form-control" />
+                        <label className="form-label" htmlFor="header">{this.props.t('blog_header')} </label>
+                        <input 
+                        type="text" 
+                        className="form-control" 
+                        id="header" 
+                        name="header"
+                        placeholder={this.props.t('blog_header')}
+                        autoFocus={true}
+                        required="true"
+                        onChange={this.onChangeInputValue} />
+                        <div className="is-invalid text-danger form-control44">Adı boş geçtiniz</div>
                     </div>
-                    {/* Email input */}
+                    {/* Content input */}
                     <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="form4Example2">
-                            Email address
-                        </label>
-                        <input type="email" id="form4Example2" className="form-control" />
-                    </div>
-                    {/* Message input */}
-                    <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="form4Example3">
-                            Message
-                        </label>
-                        <textarea
-                            className="form-control"
-                            id="form4Example3"
-                            rows={4}
-                            defaultValue={""}
-                        />
+                        <label className="form-label" htmlFor="header">{this.props.t('blog_content')} </label>
+                        <textarea 
+                        className="form-control" 
+                        id="content" 
+                        name="content"
+                        placeholder={this.props.t('blog_content')}
+                        autoFocus={false}
+                        required="true"
+                        onChange={this.onChangeInputValue} rows="4"/>
+                         <div className="is-invalid text-danger form-control44">içerik boş geçtiniz</div>
                     </div>
                     {/* Checkbox */}
                     <div className="form-check d-flex justify-content-center mb-4">
@@ -72,7 +99,7 @@ class BlogCreate extends Component {
                             defaultChecked=""
                         />
                         <label className="form-check-label" htmlFor="form4Example4">
-                            Send me a copy of this message
+                            Lütfen öncelikle okuyun ve onaylayın.
                         </label>
                     </div>
                     {/* Submit button */}
