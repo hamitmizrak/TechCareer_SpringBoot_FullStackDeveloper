@@ -24,15 +24,16 @@ class BlogCreate extends Component {
             header: null,
             content: null,
             blogDto: {},
-            // isRead
-            // SpinnerData
-            // Validation
+            isRead: false,
+            spinnerData: false,
             // Multiple Request engellemek
+            // Handle Error
         }
 
         //bind
         this.blogCreateSubmit = this.blogCreateSubmit.bind(this);
         this.onChangeInputValue = this.onChangeInputValue.bind(this);
+        this.onChangeIsRead = this.onChangeIsRead.bind(this);
     }
 
     // CDM
@@ -57,7 +58,6 @@ class BlogCreate extends Component {
             [name]: value,
         })
     } // end onChangeInputValue
-
 
     // SUBMIT
     blogCreateSubmit = async (event) => {
@@ -88,15 +88,31 @@ class BlogCreate extends Component {
 
         // 2.YOL(Async Await)
         try {
+            //Spinner
+            this.setState({spinnerData: true});
             const response = await BlogApiServices.blogServiceCreate(blogDto);
-            if(response.status==200){
+            if (response.status == 200) {
                 // PHP
                 this.props.history.push("/blog/list")
             }
         } catch (err) {
-            console.error(err)
+            console.error(err);
+              //Spinner
+        this.setState({spinnerData: true});
         }
+        //Spinner
+        this.setState({ spinnerData: false });
     } //end blogCreateSubmit
+
+    // OKUMUŞ MU
+    onChangeIsRead = (event) => {
+        // CONSOLE
+        console.log(event.target.checked)
+
+        this.setState({
+            isRead: event.target.checked,
+        })
+    }  //end onChangeIsRead
 
     //RENDER
     render() {
@@ -147,24 +163,34 @@ class BlogCreate extends Component {
                             onChange={this.onChangeInputValue} rows="4" />
                         <div className="is-invalid text-danger form-control44">içerik boş geçtiniz</div>
                     </div>
+
                     {/* Checkbox */}
                     <div className="form-check d-flex justify-content-center mb-4">
                         <input
                             className="form-check-input me-2"
                             type="checkbox"
                             defaultValue=""
-                            id="form4Example4"
+                            id="isRead"
+                            name="isRead"
+                            onChange={this.onChangeIsRead}
                             defaultChecked=""
                         />
                         <label className="form-check-label" htmlFor="form4Example4">
-                            Lütfen öncelikle okuyun ve onaylayın.
+                            {this.props.t('user_blog_is_read')}
                         </label>
                     </div>
                     {/* Submit button */}
                     <button
                         type="submit"
                         className="btn btn-primary btn-block mb-4"
-                        onClick={this.blogCreateSubmit}>
+                        onClick={this.blogCreateSubmit}
+                        disabled={!this.state.isRead}
+                    >
+                        {/* 1.YOL Spinner */}
+                        {/* {(this.state.spinnerData) ? <span style={{}} className="spinner-border" role="status"> </span> : ""} */}
+                        {/* 2.YOL Spinner */}
+                        {(this.state.spinnerData) && <span style={{}} className="spinner-border spinner-border-sm" role="status"> </span>}
+
                         {this.props.t('submit')}
                     </button>
                 </form>

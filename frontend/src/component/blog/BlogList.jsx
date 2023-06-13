@@ -149,7 +149,7 @@ class BlogList extends Component {
                                           }></i>
                                     </td>
                                 </tr>) // end map
-                        } //end JS
+                        }
                     </tbody>
                 </table>
             </React.Fragment>

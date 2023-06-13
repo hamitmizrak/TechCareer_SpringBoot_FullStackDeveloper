@@ -18,6 +18,7 @@ i18n.use(initReactI18next).init({
                     'blog_content':'Blog Content',
                     'submit':"Submit",
                     'clear':"Clear",
+                    'user_blog_is_read':"Are You blog Read ?"
                 }
             },
         tr:
@@ -35,6 +36,7 @@ i18n.use(initReactI18next).init({
                     'blog_content':'Blog İçeriği',
                     'submit':"Gönder",
                     'clear':"Temizle",
+                    'user_blog_is_read':"Okudunuz mu"
                 }
             }
     },
