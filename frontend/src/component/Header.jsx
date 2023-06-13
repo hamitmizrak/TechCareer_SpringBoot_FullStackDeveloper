@@ -76,15 +76,7 @@ class Header extends Component {
                                         </button>
                                     </li>
                                     {/* <OtherLanguageReusability/> */}
-
-
-                                    <li>
-                                        <img src={FlagEnglish} className="flag" alt="" />
-                                    </li>
-                                    <li>
-                                        {" "}
-                                        <img src={FlagTurkish} className="flag" alt="" />
-                                    </li>
+                                    <OtherLanguageReusability/>
                                 </ul>
                             </div>
                             <div id="navbar_first_right" className="col-4 mx-auto">
@@ -112,6 +104,9 @@ class Header extends Component {
                         </div>
                     </div>
                 </nav>
+
+                   
+         
                 {/* Modal Login */}
                 {/* if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard */}
                 <div

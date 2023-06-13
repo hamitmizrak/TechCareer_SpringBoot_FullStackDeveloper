@@ -29,17 +29,17 @@ function OtherLanguageReusability(props) {
     //render
     return (
         <React.Fragment>
-            <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li className="nav-item">
+
+                <li className="flag">
                     <Link className="nav-link" to="" onClick={() => internationalizationLanguage('tr')}>
                         <img src={tr} style={{height: "20px"}} alt="TR"/>
                     </Link>
                 </li>
-                <li className="nav-item">
+                <li className="flag">
                     <Link className="nav-link" to="" onClick={() => internationalizationLanguage('en')}>
                         <img src={en} style={{height: "15px"}} alt="EN"/></Link>
                 </li>
-            </ul>
+          
         </React.Fragment>
     );
 }

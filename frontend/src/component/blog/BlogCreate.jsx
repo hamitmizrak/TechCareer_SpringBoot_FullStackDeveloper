@@ -96,7 +96,6 @@ class BlogCreate extends Component {
         } catch (err) {
             console.error(err)
         }
-
     } //end blogCreateSubmit
 
     //RENDER
