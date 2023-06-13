@@ -30,7 +30,7 @@ class BlogList extends Component {
         this.delete = this.delete.bind(this);
     }
 
-    // CDM
+    // CDM (Promise)
     componentDidMount() {
         BlogApiServices.blogServiceList().then(
             (response) => {
@@ -76,16 +76,8 @@ class BlogList extends Component {
 
     //RENDER
     render() {
-        // 'date':"System Created Date",
-        // 'create':"Create",
-        // 'delete':"Delete",
-        // 'update':"Update",
-        // 'view':"View",
-        // 'blog':"Blog",
-        // 'blog_id':"Blog ID",
-        // 'blog_header':'Blog Header',
-        // 'blog_content':'Blog Content',
-
+  
+        // PROPS
         const { t } = this.props;
 
         //RETURN

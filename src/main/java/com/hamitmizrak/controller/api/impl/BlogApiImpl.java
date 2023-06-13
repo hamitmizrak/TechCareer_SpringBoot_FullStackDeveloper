@@ -34,8 +34,8 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     private ApiResult apiResult;
 
     // ### ROOT ###############################
-    // localhost:2222
-    // localhost:2222/index
+    // localhost:3333
+    // localhost:3333/index
     @Override
     @GetMapping({"/", "/index"})
     public ResponseEntity<String> getRoot() {
@@ -43,21 +43,21 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     }
 
     // SPEED
-    // localhost:2222/blog/api/v1/speed/data
+    // localhost:3333/blog/api/v1/speed/data
     @GetMapping("/speed/data")
     @Override
     public ResponseEntity<List<BlogDto>> speedDataService() {
         return ResponseEntity.ok(iBlogGenericsService.speedDataService());
     }
 
-    // localhost:2222/blog/api/v1/all/delete
+    // localhost:3333/blog/api/v1/all/delete
     @GetMapping("/all/delete")
     @Override
     public ResponseEntity<String> allDeleteService() {
         return ResponseEntity.ok(iBlogGenericsService.allDeleteService());
     }
 
-    // localhost:2222/blog/api/v1/app/information
+    // localhost:3333/blog/api/v1/app/information
     @GetMapping("/app/information")
     @Override
     public ResponseEntity<String> appInformationService(HttpServletRequest request, HttpServletResponse response) {
@@ -66,7 +66,7 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
 
     // ### CRUD ###############################
     // CREATE
-    // localhost:2222/blog/api/v1/create
+    // localhost:3333/blog/api/v1/create
     @Override
     @PostMapping("/create")
     public ResponseEntity<?> blogServiceCreate(@Valid @RequestBody BlogDto blogDto) {
@@ -76,7 +76,7 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     }
 
     // LIST
-    // localhost:2222/blog/api/v1/list
+    // localhost:3333/blog/api/v1/list
     @Override
     @GetMapping(value = "/list")
     public ResponseEntity<List<BlogDto>> blogServiceList() {
@@ -84,9 +84,9 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     }
 
     // FIND
-    // localhost:2222/blog/api/v1/find
-    // localhost:2222/blog/api/v1/find/0
-    // localhost:2222/blog/api/v1/find/1
+    // localhost:3333/blog/api/v1/find
+    // localhost:3333/blog/api/v1/find/0
+    // localhost:3333/blog/api/v1/find/1
     @Override
     @GetMapping({"/find", "/find/{id}"})
     public ResponseEntity<?> blogServiceFindById(@PathVariable(name = "id", required = false) Long id) {
@@ -104,7 +104,7 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     }
 
     // DELETE
-    // localhost:2222/blog/api/v1/delete/1
+    // localhost:3333/blog/api/v1/delete/1
     @Override
     @DeleteMapping({"/delete", "/delete/{id}"})
     public ResponseEntity<?> blogServiceDeleteById(@PathVariable(name = "id", required = false) Long id) {
@@ -112,7 +112,7 @@ public class BlogApiImpl implements IBlogGenericsApi<BlogDto> {
     }
 
     // UPDATE
-    // localhost:2222/blog/api/v1/update/1
+    // localhost:3333/blog/api/v1/update/1
     @Override
     @PutMapping({"/update", "/update/{id}"})
     public ResponseEntity<?> blogServiceUpdateById(

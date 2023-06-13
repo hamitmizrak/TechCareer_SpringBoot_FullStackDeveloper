@@ -16,6 +16,8 @@ i18n.use(initReactI18next).init({
                     'blog_id':"Blog ID",
                     'blog_header':'Blog Header',
                     'blog_content':'Blog Content',
+                    'submit':"Submit",
+                    'clear':"Clear",
                 }
             },
         tr:
@@ -31,6 +33,8 @@ i18n.use(initReactI18next).init({
                     'blog_id':"Blog ID",
                     'blog_header':'Blog Başlığı',
                     'blog_content':'Blog İçeriği',
+                    'submit':"Gönder",
+                    'clear':"Temizle",
                 }
             }
     },
