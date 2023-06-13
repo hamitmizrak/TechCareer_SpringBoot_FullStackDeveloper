@@ -25,9 +25,9 @@ class BlogCreate extends Component {
             content: null,
             blogDto: {},
             isRead: false,
-            spinnerData: false,
-            // Multiple Request engellemek
-            // Handle Error
+            spinnerData: false, // spinner data çalıştırmak
+            multipleRequest: false, // Çoklu istekleri kapatmak
+            validationErrors: {} // backendten gelen hataları handle yapmak
         }
 
         //bind
@@ -52,10 +52,15 @@ class BlogCreate extends Component {
         const { name, value } = event.target;
         console.log(`NAME: ${name} VALUE: ${value}`)
 
+        // Backenten gelen hataları kapat
+        const backendHandleError = { ...this.state.validationErrors }
+        backendHandleError[name] = undefined;
+
         //STATE
         this.setState({
             // 2.YOL
             [name]: value,
+            backendHandleError, // state datadan gelen backent dataları almak
         })
     } // end onChangeInputValue
 
@@ -89,19 +94,34 @@ class BlogCreate extends Component {
         // 2.YOL(Async Await)
         try {
             //Spinner
-            this.setState({spinnerData: true});
+            this.setState({
+                spinnerData: true,
+                multipleRequest: false,
+            });
             const response = await BlogApiServices.blogServiceCreate(blogDto);
             if (response.status == 200) {
+                this.setState({
+                    multipleRequest: true,
+                });
                 // PHP
                 this.props.history.push("/blog/list")
             }
         } catch (err) {
             console.error(err);
-              //Spinner
-        this.setState({spinnerData: true});
+            //Spinner
+            this.setState({ spinnerData: true });
+            // backend gelen hatalar varsa, yakala
+            const backendError = err.response.data.validationErrors;
+            if (backendError) {
+                this.setState({
+                    validationErrors: backendError
+                })
+                console.log(backendError)
+            }
+            //Spinner
+            this.setState({ spinnerData: false, multipleRequest: false, });
         }
-        //Spinner
-        this.setState({ spinnerData: false });
+
     } //end blogCreateSubmit
 
     // OKUMUŞ MU
@@ -116,8 +136,28 @@ class BlogCreate extends Component {
 
     //RENDER
     render() {
-        // 'blog_header':'Blog Header',
-        // 'blog_content':'Blog Content',
+        // object Destructing(props)
+        const { t } = this.props;
+
+        // object Destructing(state)
+        const { validationErrors, isRead, spinnerData, multipleRequest } = this.state;
+        const { header, content } = validationErrors;
+
+        // Submit button Variable
+        const submitButton = (
+            <button
+                className="btn btn-primary btn-block mb-4"
+                onClick={this.blogCreateSubmit}
+                disabled={(!isRead) || (spinnerData)}
+            >
+                {/* 1.YOL Spinner */}
+                {/* {(this.state.spinnerData) ? <span style={{}} className="spinner-border" role="status"> </span> : ""} */}
+                {/* 2.YOL Spinner */}
+                {(spinnerData) && <span style={{}} className="spinner-border spinner-border-sm" role="status"> </span>}
+                {t('submit')}
+            </button>
+        );
+
         //RETURN
         return (
             <React.Fragment>
@@ -144,24 +184,25 @@ class BlogCreate extends Component {
                         className="form-control"
                         id="header"
                         name="header"
-                        placeholder={this.props.t('blog_header')}
+                        placeholder={t('blog_header')}
                         isAutoFocus={true}
                         isRequired="true"
                         isInputOnChange={this.onChangeInputValue}
-                        error="Header alanı boş geçildi"
+                        error={header}
                     />
                     {/* Content input */}
                     <div className="form-outline">
-                        <label className="form-label" htmlFor="header">{this.props.t('blog_content')} </label>
+                        <label className="form-label" htmlFor="header">{t('blog_content')} </label>
                         <textarea
                             className="form-control"
                             id="content"
                             name="content"
-                            placeholder={this.props.t('blog_content')}
+                            placeholder={t('blog_content')}
                             autoFocus={false}
                             required="true"
+                            error={content}
                             onChange={this.onChangeInputValue} rows="4" />
-                        <div className="is-invalid text-danger form-control44">içerik boş geçtiniz</div>
+                        <div className="is-invalid text-danger form-control44">{content}</div>
                     </div>
 
                     {/* Checkbox */}
@@ -180,19 +221,7 @@ class BlogCreate extends Component {
                         </label>
                     </div>
                     {/* Submit button */}
-                    <button
-                        type="submit"
-                        className="btn btn-primary btn-block mb-4"
-                        onClick={this.blogCreateSubmit}
-                        disabled={!this.state.isRead}
-                    >
-                        {/* 1.YOL Spinner */}
-                        {/* {(this.state.spinnerData) ? <span style={{}} className="spinner-border" role="status"> </span> : ""} */}
-                        {/* 2.YOL Spinner */}
-                        {(this.state.spinnerData) && <span style={{}} className="spinner-border spinner-border-sm" role="status"> </span>}
-
-                        {this.props.t('submit')}
-                    </button>
+                    {submitButton}
                 </form>
             </React.Fragment>
         ) //end return

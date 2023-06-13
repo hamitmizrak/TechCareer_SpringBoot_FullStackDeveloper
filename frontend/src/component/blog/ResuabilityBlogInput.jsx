@@ -8,7 +8,7 @@ import { withTranslation } from 'react-i18next'
 function ResuabilityBlogInput(props) {
 
     //object destructing
-    const { label, type, className, id, name, placeholder, isAutoFocus, isRequired, isInputOnChange, error } = props;
+    const { label, type, className, id, name, placeholder, isAutoFocus, isRequired, isInputOnChange, error,value} = props;
 
     // Hataları göster 
     const errorClassName = name && "is-invalid text-danger mb-3";
@@ -26,7 +26,8 @@ function ResuabilityBlogInput(props) {
                     placeholder={placeholder}
                     autoFocus={isAutoFocus}
                     required={isRequired}
-                    onChange={isInputOnChange} />
+                    onChange={isInputOnChange} 
+                    value={value}/>
                 <div className={errorClassName}>{error}</div>
             </div>
         </React.Fragment>
