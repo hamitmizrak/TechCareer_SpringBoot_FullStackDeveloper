@@ -6,6 +6,7 @@ import { withTranslation } from 'react-i18next';
 
 // Create Css
 import "./create.css"
+import ResuabilityBlogInput from './ResuabilityBlogInput';
 
 // CLASS Component
 class BlogCreate extends Component {
@@ -63,7 +64,7 @@ class BlogCreate extends Component {
                 <h2 className="display-3 text-center text-uppercase shadow mt-5 mb-3 p-4">Blog Create</h2>
                 <form className="create_form" method='post' autoComplete='true'>
                     {/* Header input */}
-                    <div className="form-outline mb-4">
+                    {/* <div className="form-outline">
                         <label className="form-label" htmlFor="header">{this.props.t('blog_header')} </label>
                         <input 
                         type="text" 
@@ -75,9 +76,22 @@ class BlogCreate extends Component {
                         required="true"
                         onChange={this.onChangeInputValue} />
                         <div className="is-invalid text-danger form-control44">Adı boş geçtiniz</div>
-                    </div>
+                    </div> */}
+                    {/* label, type, className, id, name, placeholder, isAutoFocus, required, inputOnChange, error */}
+                    <ResuabilityBlogInput 
+                    label={this.props.t('blog_header')}
+                    type="text"
+                    className="form-control"
+                    id="header"
+                    name="header"
+                    placeholder={this.props.t('blog_header')}
+                    isAutoFocus={true}
+                    isRequired="true"
+                    isInputOnChange={this.onChangeInputValue}
+                    error="Header alanı boş geçildi"
+                    />
                     {/* Content input */}
-                    <div className="form-outline mb-4">
+                    <div className="form-outline">
                         <label className="form-label" htmlFor="header">{this.props.t('blog_content')} </label>
                         <textarea 
                         className="form-control" 
